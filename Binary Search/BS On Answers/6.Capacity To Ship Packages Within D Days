@@ -1,0 +1,57 @@
+question link: https://www.codingninjas.com/studio/problems/capacity-to-ship-packages-within-d-days_1229379?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static int leastWeightCapacity(int[] weights, int d) {
+        int start = maxInArray(weights);
+        int end = sumArray(weights);
+        int minDays = 0;
+
+        while(start <= end) {
+            int capacity = (start + end) / 2;
+            int tempCapacity = capacity;
+            int daysReq = 0;
+            // System.out.println("capacity = " + capacity);
+            for(int element : weights) {
+                tempCapacity -= element;
+                if(tempCapacity == 0) {
+                    daysReq++;
+                    tempCapacity = capacity;
+                }
+                else if(tempCapacity < 0) {
+                    daysReq++;
+                    tempCapacity = capacity;
+                    tempCapacity -= element;
+                    if(tempCapacity == 0) {
+                        daysReq++;
+                        tempCapacity = capacity;
+                    }
+                }
+            }
+            
+            if(tempCapacity != capacity && tempCapacity > 0) daysReq++;
+            // System.out.println("daysReq = " + daysReq);
+
+            if(daysReq <= d) {
+                minDays = capacity;
+                end = capacity - 1;
+            }
+            else start = capacity + 1;
+        }
+
+        return minDays;
+    }
+
+    static int maxInArray(int[] arr) {
+        int max = 0;
+        for(int element : arr) max = Math.max(max, element);
+        return max;
+    }
+
+    static int sumArray(int[] arr) {
+        int sum = 0;
+        for(int element : arr) sum += element;
+        return sum;
+    }
+}

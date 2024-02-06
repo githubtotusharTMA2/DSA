@@ -1,3 +1,5 @@
+question link: https://www.codingninjas.com/studio/problems/smallest-divisor-with-the-given-limit_1755882?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf
+
 public class Solution {
     public static int smallestDivisor(int arr[], int limit) {
         int len = arr.length;
